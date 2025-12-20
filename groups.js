@@ -13,33 +13,38 @@ async function fetchData() {
     }
   });
   breeds = await response.json();
+
+  dogBreedContainer.innerHTML = breeds.map(breed => dogHTML(breed))
+    .join("");
+
 };
 
 fetchData();
 
-console.log(breeds);
+function dogHTML(breed) {
+  return `
+  <div class="user">
+    <div class="user-card">
+    <div class="user-card__container">
+      <h3>${breed.name}</h3>
+      <p><b>Origin:</b> ${breed.origin || "Unknown"}</p>
+      <p><b>Breed Group:</b> ${breed.breed_group || "Unknown"}</p>
+      <p><b>Bred For:</b> ${breed.bred_for || "Unknown"}</p>
+      <p><b>Temperament:</b> ${breed.temperament || "Unknown"}</p>
+    </div>
+    </div>
+    </div>
+  `;
+} 
 
-//FILTER BREEDS BY BREED GROUP
+const selectFilter = document.getElementById('groupsFilter');
 
+function filterDogBreeds(event) {
+  renderByGroup(event.target.value);
+}
 
-
-// UPDATE FOLLOWING CODE TO WORK AS WELL:
-
-// function dogHTML(breed) {
-//   return `
-//   <div class="user">
-//     <div class="user-card">
-//     <div class="user-card__container">
-//       <h3>${breed.name}</h3>
-//       <p><b>Origin:</b> ${breed.origin || "Unknown"}</p>
-//       <p><b>Breed Group:</b> ${breed.breed_group || "Unknown"}</p>
-//       <p><b>Bred For:</b> ${breed.bred_for || "Unknown"}</p>
-//       <p><b>Temperament:</b> ${breed.temperament || "Unknown"}</p>
-//     </div>
-//     </div>
-//     </div>
-//   `;
-// } 
-
-
+function renderByGroup() {
+  return dogBreeds.filter(
+    breed => breed.breed_group === filter);
+};
 
