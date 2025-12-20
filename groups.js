@@ -37,14 +37,22 @@ function dogHTML(breed) {
   `;
 } 
 
-const selectFilter = document.getElementById('groupsFilter');
+//select the select filter element in HTML
+const groupsFilter = document.getElementById('groupsFilter');
 
-function filterDogBreeds(event) {
-  renderByGroup(event.target.value);
-}
+//Adding event listener
+groupsFilter.addEventListener('change' , (event) => {
+  const selectedGroup = event.target.value;
 
-function renderByGroup() {
-  return dogBreeds.filter(
-    breed => breed.breed_group === filter);
-};
+  const filteredBreeds = breeds.filter(breed => {
+    return breed.breed_group === selectedGroup;
+    });
+
+  dogBreedContainer.innerHTML = filteredBreeds
+    .map(breed => dogHTML(breed))
+    .join("");
+});
+
+
+
 
