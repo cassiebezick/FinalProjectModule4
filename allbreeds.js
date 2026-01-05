@@ -39,44 +39,40 @@ function dogHTML(breed) {
 } 
 
 //select the select filter element in HTML
-const groupsFilter = document.getElementById('sortBreeds');
+const sortBreeds = document.getElementById('sortBreeds');
 
 //Adding event listener
 sortBreeds.addEventListener('change' , (event) => {
   const filter = event.target.value;
 
+const getFirstNumber = (str) => {
+    const match = String(str).match(/\d+/);
+    return match ? Number(match[0]) : 0;
+};
+
   const sortedBreeds = breeds.sort((a,b) => {
     if ( filter === "AtoZ") {
-      console.log("it worked");
       return a.name.localeCompare(b.name);
     }
     else if (filter === "ZtoA") {
-      console.log("ZtoA");
       return b.name.localeCompare(a.name);
     }
     else if (filter === "BreedGroup") {
-      console.log("breed group");
       return a.breed_group.localeCompare(b.breed_group)
     }
-    else if (filter === "LifeSpan") {
-      console.log("life span");
-      //filter for weight here
+    else if (filter === "Size") {
+      return getFirstNumber(a.weight.imperial) - getFirstNumber(b.weight.imperial);
     }
+    else if (filter === "LifeSpan") {
+      return getFirstNumber(a.life_span) - getFirstNumber(b.life_span);
+    }
+    
   })
 
   dogBreedContainer.innerHTML = sortedBreeds
     .map(breed => dogHTML(breed))
     .join("");
 });
-
-
-
-//         //     <option value="AtoZ">ALL A to Z</option>
-//         //     <option value="ZtoA">ALL Z to A</option>
-//         //     <option value="BreedGroup">Breed Group</option>
-//         //     <option value="Size">Size</option>
-//         // </select>
-
 
 
 

@@ -30,3 +30,4 @@ async function fetchData() {
 
 // Call the function
 fetchData();
+
