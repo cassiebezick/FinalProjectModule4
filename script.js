@@ -38,16 +38,19 @@ function dogHTML(breed) {
 
 //select the select filter element in HTML
 const searchInput = document.getElementById('searchbar');
+const searchButton = document.querySelector(".searchbar__button");
 
 //Adding event listener
-searchInput.addEventListener("input", (e) => {
-  const searchValue = e.target.value.toLowerCase();
-  
+searchButton.addEventListener("click", () => {
+  console.log("button clicked");
+
+  const searchValue = searchInput.value.toLowerCase();
+
   const filteredBreeds = breeds.filter(breed =>
     breed.name.toLowerCase().includes(searchValue)
   );
 
-dogBreedContainer.innerHTML = filteredBreeds
+  dogBreedContainer.innerHTML = filteredBreeds
     .map(breed => dogHTML(breed))
     .join("");
 });
