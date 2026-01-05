@@ -1,7 +1,7 @@
 const API_URL = "https://api.thedogapi.com/v1/breeds";
 const API_KEY = "live_c1LVRF88KDghAq5ImtSiz23of0wDNtl17oANVIuJIdwH3NFG5AZaAAv9eZNIJ9WQ";
 
-const dogBreedContainer = document.querySelector("breedResults");
+const dogBreedContainer = document.querySelector(".breedResults");
 
 let breeds = [];
 
@@ -40,11 +40,17 @@ function dogHTML(breed) {
 } 
 
 //select the select filter element in HTML
-const breedResults = document.getElementById('searchbar');
+const searchInput = document.getElementById('searchbar');
 
 //Adding event listener
+searchInput.addEventListener("input", (e) => {
+  const searchValue = e.target.value.toLowerCase();
+  
+  const filteredBreeds = breeds.filter(breed =>
+    breed.name.toLowerCase().includes(searchValue)
+  );
 
-
-dogBreedContainer.innerHTML = breedResults
+dogBreedContainer.innerHTML = filteredBreeds
     .map(breed => dogHTML(breed))
     .join("");
+});
