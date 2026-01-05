@@ -15,9 +15,6 @@ async function fetchData() {
 
   breeds = await response.json();
 
-  dogBreedContainer.innerHTML = breeds.map(breed => dogHTML(breed))
-    .join("");
-
 };
 
 fetchData();
